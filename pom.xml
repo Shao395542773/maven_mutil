@@ -12,6 +12,9 @@
     <modules>
         <module>webapp</module>
         <module>webservice</module>
+        <module>freemarkerTools</module>
+        <module>encryptTools</module>
+        <module>quartztools</module>
     </modules>
     <!--版本信息-->
     <properties>
@@ -68,6 +71,8 @@
             <version>${spring.version}</version>
         </dependency>
         <!-- spring end -->
+
+
 
 
         <!-- 日志文件管理包 -->
@@ -133,6 +138,24 @@
             <groupId>org.mybatis</groupId>
             <artifactId>mybatis-spring</artifactId>
             <version>1.2.0</version>
+        </dependency>
+        <!--javax -->
+        <dependency>
+            <groupId>javax</groupId>
+            <artifactId>javaee-api</artifactId>
+            <version>7.0</version>
+            <scope>provided</scope>
+        </dependency>
+        <!--httpclient-->
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpcore</artifactId>
+            <version>4.4</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpmime</artifactId>
+            <version>4.3.6</version>
         </dependency>
     </dependencies>
 
