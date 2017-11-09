@@ -9,15 +9,12 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>quartztools</artifactId>
-    <properties>
-        <quartz.version>1.8.6</quartz.version>
-    </properties>
-    <dependencies>
-        <dependency>
-            <groupId>org.quartz-scheduler</groupId>
-            <artifactId>quartz</artifactId>
-            <version>${quartz.version}</version>
-        </dependency>
-    </dependencies>
+    <artifactId>service</artifactId>
+    <packaging>pom</packaging>
+    <modules>
+        <module>business</module>
+        <module>login</module>
+    </modules>
+
+
 </project>

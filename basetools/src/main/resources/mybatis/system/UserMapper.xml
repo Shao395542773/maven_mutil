@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="UserMapper">
+
+    <resultMap type="com.zhzj.entity.User" id="userResultMap">
+        <id column="id" property="id"/>
+        <result column="username" property="username"/>
+        <result column="password" property="password"/>
+        <result column="create_time" property="create_time"/>
+        <result column="update_time" property="update_time"/>
+    </resultMap>
+
+
+    <!--表名 -->
+    <sql id="tableName">
+		ss2_user
+	</sql>
+
+    <!-- 字段 -->
+    <sql id="Field">
+		ID,
+		USERNAME,
+		PASSWORD
+	</sql>
+
+    <!-- 判断用户名和密码 -->
+    <select id="getUserInfo" parameterType="pd" resultType="pd">
+
+
+        <!--SELECT-->
+        <!--r.id role_id,-->
+        <!--u.username,-->
+        <!--u.end_avali_time,-->
+        <!--u.id,-->
+        <!--u.`password`,-->
+        <!--u.start_avali_time,-->
+        <!--FROM-->
+        <!--ss2_user u-->
+        <!--LEFT  JOIN ss2_user_role ur ON u.id = ur.user_id-->
+        <!--LEFT  JOIN ss2_role r ON ur.role_id = r.id-->
+        <!--WHERE-->
+        <!--binary 1=1 and u.IS_LIVE = 0-->
+        <!--<if test="username!=null and password!=null">-->
+        <!--and u.username = #{username} and u.password=#{password}-->
+        <!--</if>-->
+
+
+        SELECT
+        r.id role_id ,
+        u.username ,
+        u.end_avali_time ,
+        u.id ,
+        u.is_lock,
+        u.`password` ,
+        u.is_approve ,
+        u.start_avali_time,
+        right_id.right_code,
+        right_id.right_name,
+        right_id.right_type,
+        role_right.right_time,
+        role_right.is_mutil
+        FROM
+        ss2_user u
+        LEFT JOIN ss2_user_role ur ON u.id = ur.user_id
+        LEFT JOIN ss2_role r ON ur.role_id = r.id
+        LEFT JOIN ss2_role_right role_right ON r.id = role_right.role_id
+        LEFT JOIN ss2_right right_id ON role_right.right_id = right_id.right_code
+        WHERE
+        BINARY 1 = 1
+        <!--        AND u.IS_LIVE = 0   -->
+        <if test="username!=null and password!=null">
+            and u.username = #{username} and u.password=#{password}
+        </if>
+
+        <!--select-->
+        <!--<include refid="Field"></include>-->
+        <!--from-->
+        <!--<include refid="tableName"></include>-->
+        <!--where binary 1=1 and IS_LIVE = 0-->
+        <!--<if test="username!=null and password!=null">-->
+        <!--and username = #{username} and password=#{password}-->
+        <!--</if>-->
+    </select>
+
+    <!-- 通过USERNAME获取数据 -->
+    <select id="findByUsername" parameterType="pd" resultType="pd">
+        select
+        <include refid="Field"></include>
+        from
+        <include refid="tableName"></include>
+        where binary
+        username = #{username}
+    </select>
+
+    <insert id="addUser" parameterType="pd">
+        INSERT INTO
+        <include refid="tableName"></include>
+        (username, password, person_name, id_card, mail,comment, company_name, sector, project_name, contact_person, is_live,is_approve,
+        is_lock,create_time, update_time )
+        VALUES(#{username}, #{password}, #{person_name}, #{id_card}, #{mail}, #{comment},#{company_name}, #{sector}, #{project_name},
+        #{contact_person}, 1, 0, 0, #{create_time}, #{update_time} )
+    </insert>
+
+</mapper>
