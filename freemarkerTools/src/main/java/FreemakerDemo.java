@@ -10,7 +10,6 @@ import java.util.Map;
 
 public class FreemakerDemo {
     public static void main(String[] args) throws IOException, TemplateException {
-
         Template template = FreemarkerUtils.geTemplate("freemakerdemo");
         Map<String,String > map =new HashMap<>();
         map.put("name","liushaobo");
